@@ -9,10 +9,11 @@
 import Foundation
 
 public struct FocalLengthValue: Hashable, Codable, Sendable {
-    public let value: Int
+    public let value: UInt32
     public var title: String { "\(value)mm" }
     
-    public init(value: Int) {
+    public init?(_ value: UInt32) {
+        guard value > .zero else { return nil }
         self.value = value
     }
 }

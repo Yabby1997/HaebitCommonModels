@@ -13,7 +13,8 @@ public struct ApertureValue: Hashable, Codable, Sendable {
     public var title: String { String(format: "ƒ%g", value) }
     public var description: String { title }
     
-    public init(value: Float) {
+    public init?(_ value: Float) {
+        guard value > .zero else { return nil }
         self.value = value
     }
 }
