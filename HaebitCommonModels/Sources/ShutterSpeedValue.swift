@@ -9,24 +9,24 @@
 import Foundation
 
 public struct ShutterSpeedValue: Hashable, Codable, Sendable {
-    public let denominator: Float
-    public var value: Float { 1 / denominator }
-    public var title: String { isLessThanOneSecond ? "¹⁄" + Int(denominator).subscriptString + "s" : "\(Int(1 / denominator))s" }
-    public var description: String { isLessThanOneSecond ? "¹⁄ \(Int(denominator))s" : "\(Int(1 / denominator))s" }
-    private var isLessThanOneSecond: Bool { denominator > 1 }
+    /// Actual value of shutter speed in seconds.
+    public let value: Float
+    public let numerator: UInt32
+    public let denominator: UInt32
+    public let title: String
+    public let description: String
     
-    public init?(denominator: Float) {
-        guard denominator > .zero else { return nil }
+    public init?(numerator: UInt32 = 1, denominator: UInt32 = 1) {
+        guard numerator > .zero, denominator > .zero else { return nil }
+        self.value = Float(numerator) / Float(denominator)
+        self.title = (numerator == 1 && denominator != 1) ? "¹⁄" + denominator.subscriptString + "s" : "\(numerator)s"
+        self.description = (numerator == 1 && denominator != 1) ? "¹⁄ \(denominator)s" : "\(numerator)s"
+        self.numerator = numerator
         self.denominator = denominator
-    }
-    
-    public init?(seconds: Int) {
-        guard seconds > .zero else { return nil }
-        self.denominator = 1 / Float(seconds)
     }
 }
 
-extension Int {
+extension UInt32 {
     fileprivate var subscriptString: String {
         String(self).compactMap { $0.subscript }.reduce("") { $0 + String($1) }
     }
