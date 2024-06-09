@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Coordinate: Equatable, Sendable {
+public struct Coordinate: Equatable, Hashable, Sendable {
     public let latitude: Double
     public let longitude: Double
     
@@ -16,5 +16,9 @@ public struct Coordinate: Equatable, Sendable {
         guard (-90...90).contains(latitude), (-180...180).contains(longitude) else { return nil }
         self.latitude = latitude
         self.longitude = longitude
+    }
+    
+    public static func ==(lhs: Self, rhs: Self) -> Bool {
+        abs(lhs.latitude - rhs.latitude) <= 0.00001 && abs(lhs.longitude - rhs.longitude) <= 0.00001
     }
 }
