@@ -10,14 +10,9 @@ import HaebitCommonModels
 import XCTest
 
 final class ShutterSpeedValueTests: XCTestCase {
-    func testZeroDenominator() {
-        let shutterSpeed = ShutterSpeedValue(denominator: .zero)
-        XCTAssertNil(shutterSpeed)
-    }
-    
-    func testZeroSeconds() {
-        let shutterSpeed = ShutterSpeedValue(seconds: .zero)
-        XCTAssertNil(shutterSpeed)
+    func testInvalidShutterSpeeds() {
+        XCTAssertNil(ShutterSpeedValue(denominator: .zero))
+        XCTAssertNil(ShutterSpeedValue(numerator: .zero))
     }
     
     func test2000Denominator() {
@@ -37,7 +32,7 @@ final class ShutterSpeedValueTests: XCTestCase {
     }
     
     func testOneSecond() {
-        let shutterSpeed = ShutterSpeedValue(seconds: 1)!
+        let shutterSpeed = ShutterSpeedValue(numerator: 1)!
         XCTAssertEqual(shutterSpeed.denominator, 1)
         XCTAssertEqual(shutterSpeed.description, "1s")
         XCTAssertEqual(shutterSpeed.title, "1s")
@@ -45,8 +40,8 @@ final class ShutterSpeedValueTests: XCTestCase {
     }
     
     func testOverOneSecond() {
-        let shutterSpeed = ShutterSpeedValue(seconds: 16)!
-        XCTAssertEqual(shutterSpeed.denominator, 0.0625)
+        let shutterSpeed = ShutterSpeedValue(numerator: 16)!
+        XCTAssertEqual(shutterSpeed.value, 16.0)
         XCTAssertEqual(shutterSpeed.description, "16s")
         XCTAssertEqual(shutterSpeed.title, "16s")
         XCTAssertEqual(shutterSpeed.value, 16)
