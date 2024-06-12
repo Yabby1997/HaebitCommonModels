@@ -8,10 +8,19 @@
 
 import Foundation
 
+/// A common coordinate data model for Haebit.
 public struct Coordinate: Equatable, Hashable, Sendable {
+    /// Latitude value of coordinate.
     public let latitude: Double
+    /// Longitude value of coordinate.
     public let longitude: Double
     
+    /// Creates a new ``Coordinate`` with latitude and longitude.
+    ///
+    /// - Parameters:
+    ///     - latitude: Latitude value of coordinate.
+    ///     - longitude: Longitude value of coordinate.
+    /// - Note: Returns `nil` if latitude or longitude is invalid.
     public init?(latitude: Double, longitude: Double) {
         guard (-90...90).contains(latitude), (-180...180).contains(longitude) else { return nil }
         self.latitude = latitude

@@ -8,14 +8,25 @@
 
 import Foundation
 
+/// A common shutter speed data model for Haebit.
 public struct ShutterSpeedValue: Hashable, Codable, Sendable {
     /// Actual value of shutter speed in seconds.
     public let value: Float
+    /// Numerator value of shutter speed.
     public let numerator: UInt32
+    /// Denominator value of shutter speed.
     public let denominator: UInt32
+    /// Title for shutter speed.
     public let title: String
+    /// Description for shutter speed.
     public let description: String
     
+    /// Creates a new ``ShutterSpeedValue`` with numerator and denominator.
+    ///
+    /// - Parameters:
+    ///     - numerator: Numerator value of shutter speed. Default value is 1.
+    ///     - denominator: Denominator value of shutter speed. Default value is 1.
+    /// - Note: Returns `nil` if numerator or denominator is invalid.
     public init?(numerator: UInt32 = 1, denominator: UInt32 = 1) {
         guard numerator > .zero, denominator > .zero else { return nil }
         self.value = Float(numerator) / Float(denominator)
