@@ -17,9 +17,13 @@ public struct ShutterSpeedValue: Hashable, Codable, Sendable {
     /// Denominator value of shutter speed.
     public let denominator: UInt32
     /// Title for shutter speed.
-    public let title: String
+    public var title: String {
+        (numerator == 1 && denominator != 1) ? "¹⁄" + denominator.subscriptString + "s" : "\(numerator)s"
+    }
     /// Description for shutter speed.
-    public let description: String
+    public var description: String {
+        (numerator == 1 && denominator != 1) ? "¹⁄\(denominator)s" : "\(numerator)s"
+    }
     
     /// Creates a new ``ShutterSpeedValue`` with numerator and denominator.
     ///
@@ -30,8 +34,6 @@ public struct ShutterSpeedValue: Hashable, Codable, Sendable {
     public init?(numerator: UInt32 = 1, denominator: UInt32 = 1) {
         guard numerator > .zero, denominator > .zero else { return nil }
         self.value = Float(numerator) / Float(denominator)
-        self.title = (numerator == 1 && denominator != 1) ? "¹⁄" + denominator.subscriptString + "s" : "\(numerator)s"
-        self.description = (numerator == 1 && denominator != 1) ? "¹⁄ \(denominator)s" : "\(numerator)s"
         self.numerator = numerator
         self.denominator = denominator
     }
