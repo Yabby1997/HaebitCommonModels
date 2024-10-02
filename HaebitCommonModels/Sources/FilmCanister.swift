@@ -9,7 +9,7 @@
 import Foundation
 
 /// Types of 135 format film canisters.
-public enum FilmCanister: CaseIterable {
+public enum FilmCanister: CaseIterable, Sendable {
     case kodakUltramax400
     case kodakColorPlus200
     case kodakGold200

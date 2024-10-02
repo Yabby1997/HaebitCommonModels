@@ -9,7 +9,7 @@
 import Foundation
 
 /// Types of perforation shape in 135 format films.
-public enum PerforationShape: CaseIterable {
+public enum PerforationShape: CaseIterable, Sendable {
     case bh
     case ks
     
