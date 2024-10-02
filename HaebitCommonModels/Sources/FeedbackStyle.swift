@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum FeedbackStyle: CaseIterable, Identifiable, Sendable {
+public enum FeedbackStyle: CaseIterable, Codable, Identifiable, Sendable {
     case heavy
     case medium
     case light
