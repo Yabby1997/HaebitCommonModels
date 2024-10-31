@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Types of feedback style in Haebit.
 public enum FeedbackStyle: CaseIterable, Codable, Identifiable, Sendable {
     case heavy
     case medium
@@ -15,8 +16,10 @@ public enum FeedbackStyle: CaseIterable, Codable, Identifiable, Sendable {
     case rigid
     case soft
     
+    /// Identifier for FeedbackStyle.
     public var id: String { description }
     
+    /// Description for FeedbackStyle.
     public var description: String {
         switch self {
         case .heavy: return "Heavy"
